@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fetchOptimalCharging } from '../api/energyService';
 import type { ChargingWindow } from '../types';
-import { BatteryCharging, Clock, Zap } from 'lucide-react';
+import { Clock, Zap } from 'lucide-react';
 
 export const ChargingOptimizer: React.FC = () => {
   const [hours, setHours] = useState<number>(1);

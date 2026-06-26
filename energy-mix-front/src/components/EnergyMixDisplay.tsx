@@ -53,7 +53,9 @@ export const EnergyMixDisplay: React.FC = () => {
           // transformacja obiektu na tablicę dla Recharts
           const chartData = Object.entries(day.averageMix)
             .map(([name, value]) => ({ name, value }))
-            .filter(item => item.value > 0);
+            .filter((item): item is { name: string; value: number } => 
+              item.value !== undefined && item.value > 0
+            );
 
           return (
             <div key={day.date} className="chart-card">
@@ -75,7 +77,12 @@ export const EnergyMixDisplay: React.FC = () => {
                         <Cell key={`cell-${i}`} fill={COLORS[entry.name] || COLORS.other} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value: number) => `${value.toFixed(1)}%`} />
+                    <Tooltip 
+                      formatter={(value: any) => {
+                        const numericValue = Number(value);
+                        return isNaN(numericValue) ? '' : `${numericValue.toFixed(1)}%`;
+                      }} 
+                    />
                     <Legend />
                   </PieChart>
                 </ResponsiveContainer>
