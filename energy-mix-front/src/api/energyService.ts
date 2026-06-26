@@ -1,6 +1,7 @@
 import type { DailyEnergyData, ChargingWindow } from '../types';
 
-const API_BASE_URL = 'http://localhost:8080/api/energy';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const API_BASE_URL = `${API_BASE}/api/energy`;
 
 export const fetchEnergyMix = async (): Promise<DailyEnergyData[]> => {
   const response = await fetch(`${API_BASE_URL}/mix`);
